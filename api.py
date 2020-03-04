@@ -4,7 +4,7 @@ import json
 import threading
 
 app = Flask(__name__)
-mongoengine.connect('average_app_db', host='localhost', port=27017)
+mongoengine.connect('average_app_db', host='0.0.0.0', port=27017)
 
 
 class Customer(mongoengine.Document):
@@ -25,7 +25,7 @@ class Request(mongoengine.Document):
 
 @app.route('/api/health', methods=['GET'])
 def health():
-    return {}, 200
+    return str({}), 200
 
 @app.route('/api/add_customers', methods=['POST'])
 def get_customers():
@@ -76,4 +76,4 @@ def get_customer_average(requestID, customer_name, from_range, to_range):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')
